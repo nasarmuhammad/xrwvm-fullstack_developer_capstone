@@ -136,3 +136,17 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATICFILES_DIRS = [BASE_DIR / 'frontend' / 'static']
 
+
+# Capstone Theia proxy CSRF configuration
+import os as _capstone_os
+
+CSRF_TRUSTED_ORIGINS = list(dict.fromkeys(
+    globals().get("CSRF_TRUSTED_ORIGINS", [])
+    + [
+        origin.strip()
+        for origin in _capstone_os.environ.get(
+            "CAPSTONE_CSRF_TRUSTED_ORIGINS", ""
+        ).split(",")
+        if origin.strip()
+    ]
+))
