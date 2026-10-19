@@ -102,7 +102,7 @@ jobs:
 
           ( cd server/database && node app.js ) > ci-express.log 2>&1 &
           EXPRESS_PID=$!
-          ( cd server/djangoapp/microservices && python -u app.py ) > ci-flask.log 2>&1 &
+          ( cd server/djangoapp/microservices && PORT=5050 python -u app.py ) > ci-flask.log 2>&1 &
           FLASK_PID=$!
           ( cd server && python -u manage.py runserver 127.0.0.1:8000 --noreload ) > ci-django.log 2>&1 &
           DJANGO_PID=$!
