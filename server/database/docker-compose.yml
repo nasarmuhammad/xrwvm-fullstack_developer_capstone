@@ -1,23 +1,30 @@
-version: '3.9'
-
 services:
-  # Mongodb service
   mongo_db:
-    container_name: db_container
-    image: mongo:latest
+    image: mongo:7
+    restart: unless-stopped
     ports:
-      - 27017:27017
-    restart: always
+      - "127.0.0.1:27017:27017"
     volumes:
       - mongo_data:/data/db
+    healthcheck:
+      test: ["CMD-SHELL", "mongosh --quiet --eval 'db.adminCommand({ ping: 1 }).ok' | grep -q 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 20s
 
-  # Node api service
   api:
-    image: nodeapp
+    build: .
+    image: capstone-dealership-api:local
+    restart: unless-stopped
+    environment:
+      MONGO_URI: mongodb://mongo_db:27017/dealershipsDB
+      PORT: "3030"
     ports:
-      - 3030:3030
-    depends_on: 
-      - mongo_db
+      - "3030:3030"
+    depends_on:
+      mongo_db:
+        condition: service_healthy
 
 volumes:
   mongo_data: {}

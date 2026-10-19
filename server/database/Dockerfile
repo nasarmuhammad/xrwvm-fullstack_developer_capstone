@@ -1,16 +1,10 @@
-FROM node:18.12.1-bullseye-slim
+FROM node:20-alpine
 
-RUN npm install -g npm@9.1.3
-
-ADD package.json .
-ADD app.js .
-ADD review.js .
-ADD dealership.js .
-ADD data/dealerships.json .
-ADD data/reviews.json .
-COPY . .
-RUN npm install
+WORKDIR /app
+COPY package*.json ./
+RUN npm install --omit=dev --no-audit --no-fund
+COPY app.js dealership.js review.js ./
+COPY data/dealerships.json data/reviews.json ./data/
 
 EXPOSE 3030
-
-CMD [ "node", "app.js" ]
+CMD ["node", "app.js"]
