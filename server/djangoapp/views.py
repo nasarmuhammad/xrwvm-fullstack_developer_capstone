@@ -109,3 +109,50 @@ def registration(request):
                                     last_name=last_name, email=email, password=password)
     return JsonResponse({'userName': user.username, 'status': 'Registered'}, status=201)
 
+
+# BEGIN CAPSTONE CAR CATALOG AND SENTIMENT VIEWS
+from django.views.decorators.http import require_GET as capstone_require_get
+from .models import CarMake as CapstoneCarMake, CarModel as CapstoneCarModel
+from .populate import initiate as capstone_initiate
+from .restapis import analyze_review_sentiments as capstone_analyze_sentiments
+
+
+@capstone_require_get
+def get_cars(request):
+    """Course-compatible response with both CarModel and CarMake names."""
+    if not CapstoneCarModel.objects.exists():
+        capstone_initiate()
+    cars = [
+        {
+            "CarModel": car.name,
+            "CarMake": car.car_make.name,
+            "id": car.pk,
+            "year": car.year,
+            "type": car.type,
+        }
+        for car in CapstoneCarModel.objects.select_related("car_make").all()
+    ]
+    return JsonResponse({"CarModels": cars})
+
+
+@capstone_require_get
+def get_carmakes(request):
+    """Convenience endpoint for a make-selection dropdown."""
+    if not CapstoneCarMake.objects.exists():
+        capstone_initiate()
+    makes = list(CapstoneCarMake.objects.order_by("name").values("id", "name", "description"))
+    return JsonResponse({"CarMakes": makes})
+
+
+@capstone_require_get
+def analyze_review(request):
+    """Optional Django proxy for the Flask sentiment microservice."""
+    text = request.GET.get("text", "")
+    if not text.strip():
+        return JsonResponse({"error": "Query parameter 'text' is required"}, status=400)
+    try:
+        return JsonResponse(capstone_analyze_sentiments(text))
+    except Exception:
+        logger.exception("Sentiment analyzer request failed")
+        return JsonResponse({"error": "Sentiment analyzer unavailable"}, status=502)
+# END CAPSTONE CAR CATALOG AND SENTIMENT VIEWS

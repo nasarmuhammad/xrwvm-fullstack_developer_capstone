@@ -29,3 +29,15 @@ urlpatterns += [
     capstone_path('register/', registration),
 ]
 # END CAPSTONE AUTH ROUTES
+
+# BEGIN CAPSTONE CAR CATALOG AND SENTIMENT ROUTES
+from .views import get_cars as capstone_get_cars, get_carmakes as capstone_get_carmakes, analyze_review as capstone_analyze_review
+urlpatterns += [
+    capstone_path('get_cars', capstone_get_cars, name='get_cars'),
+    capstone_path('get_cars/', capstone_get_cars),
+    capstone_path('get_carmakes', capstone_get_carmakes, name='get_carmakes'),
+    capstone_path('get_carmakes/', capstone_get_carmakes),
+    capstone_path('analyze_review', capstone_analyze_review, name='analyze_review'),
+    capstone_path('analyze_review/', capstone_analyze_review),
+]
+# END CAPSTONE CAR CATALOG AND SENTIMENT ROUTES
