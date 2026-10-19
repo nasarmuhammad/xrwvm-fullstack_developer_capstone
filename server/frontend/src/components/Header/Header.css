@@ -1,0 +1,22 @@
+.cd-header { font-family: 'Segoe UI',system-ui,-apple-system,sans-serif; background: #fff; border-bottom:1px solid #e5ebf0; position:sticky;top:0;z-index:30;box-shadow:0 2px 16px rgba(17,38,58,.035); }
+.cd-header * { box-sizing:border-box; }
+.cd-shell { max-width:1190px; width:calc(100% - 56px); margin:0 auto; }
+.cd-nav { height:76px; display:flex; align-items:center;justify-content:space-between; gap:24px; }
+.cd-brand { text-decoration:none; color:#162d40; display:flex;align-items:center;gap:10px;font-size:20px;font-weight:800;letter-spacing:-.75px;white-space:nowrap; }
+.cd-brand:hover { color:#162d40; }
+.cd-brand-icon { display:grid;place-items:center;color:#fff;background:#088f91;border-radius:12px;width:37px;height:37px;font-size:16px; }
+.cd-brand-light { color:#0b9392; }
+.cd-nav-links, .cd-nav-account { display:flex;align-items:center;gap:26px; }
+.cd-nav-links a, .cd-nav-signin { color:#4d6171;text-decoration:none;font-size:14px;font-weight:650;white-space:nowrap; }
+.cd-nav-links a:hover, .cd-nav-signin:hover { color:#058f8d; }
+.cd-nav-account { gap:14px; }
+.cd-welcome { display:flex;align-items:center;gap:8px;color:#233e50;font-size:13px;white-space:nowrap; }
+.cd-avatar { background:#d7f3ef;color:#067e78;border-radius:50%;width:31px;height:31px;display:grid;place-items:center;font-weight:900; }
+.cd-btn { display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:42px;padding:10px 20px;border-radius:10px;font-weight:760;font-size:14px;text-decoration:none;cursor:pointer;border:1px solid transparent;transition:all .18s ease; }
+.cd-btn-primary { background:#078d88; color:#fff !important;box-shadow:0 5px 15px rgba(7,141,136,.13); }
+.cd-btn-primary:hover { background:#086c68;color:#fff; transform:translateY(-1px); }
+.cd-btn-outline { color:#087c78;background:#fff;border-color:#b9dfdb; }
+.cd-btn-outline:hover { background:#e6f7f5; }
+.cd-btn:disabled { opacity:.55;cursor:wait; }
+@media(max-width:850px){.cd-nav-links{gap:12px}.cd-nav{gap:12px}.cd-nav-links a{font-size:12px}.cd-brand{font-size:16px}}
+@media(max-width:650px){.cd-shell{width:calc(100% - 30px)}.cd-nav{min-height:70px;height:auto;padding:12px 0;flex-wrap:wrap}.cd-nav-links{order:3;width:100%;justify-content:center}.cd-nav-button{min-height:36px;padding:8px 10px;font-size:12px}.cd-nav-account{margin-left:auto;gap:7px}.cd-brand{font-size:15px}.cd-welcome strong{max-width:85px;overflow:hidden;text-overflow:ellipsis}.cd-nav-signin{font-size:12px}}

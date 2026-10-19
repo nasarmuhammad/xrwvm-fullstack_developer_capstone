@@ -41,3 +41,21 @@ urlpatterns += [
     capstone_path('analyze_review/', capstone_analyze_review),
 ]
 # END CAPSTONE CAR CATALOG AND SENTIMENT ROUTES
+
+# BEGIN CAPSTONE DEALER AND REVIEW ROUTES (Q17-Q22)
+from .views import get_dealers, get_dealer_by_id, get_dealer_reviews, add_review, session_info
+urlpatterns += [
+    capstone_path('get_dealers', get_dealers, name='get_dealers'),
+    capstone_path('get_dealers/', get_dealers),
+    capstone_path('get_dealers/<str:state>', get_dealers, name='get_dealers_by_state'),
+    capstone_path('get_dealers/<str:state>/', get_dealers),
+    capstone_path('dealer/<int:dealer_id>', get_dealer_by_id, name='dealer_details'),
+    capstone_path('dealer/<int:dealer_id>/', get_dealer_by_id),
+    capstone_path('reviews/dealer/<int:dealer_id>', get_dealer_reviews, name='dealer_reviews'),
+    capstone_path('reviews/dealer/<int:dealer_id>/', get_dealer_reviews),
+    capstone_path('add_review', add_review, name='add_review'),
+    capstone_path('add_review/', add_review),
+    capstone_path('session', session_info, name='session_info'),
+    capstone_path('session/', session_info),
+]
+# END CAPSTONE DEALER AND REVIEW ROUTES (Q17-Q22)
